@@ -1,20 +1,21 @@
-def binary_search(arr, target):
-    low, high = 0, len(arr) - 1
+def quick_sort(arr, low, high):
+    if low < high:
+        pivot_index = partition(arr, low, high)
+        quick_sort(arr, low, pivot_index - 1)
+        quick_sort(arr, pivot_index + 1, high)
 
-    while low <= high:
-        mid = (low + high) // 2
-        if arr[mid] == target:
-            return mid
-        elif arr[mid] < target:
-            low = mid + 1
-        else:
-            high = mid - 1
+def partition(arr, low, high):
+    pivot = arr[high]
+    i = low - 1
+    for j in range(low, high):
+        if arr[j] < pivot:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]
 
-    return -1
+    arr[i + 1], arr[high] = arr[high], arr[i + 1]
+    return i + 1
 
 
-
-arr = [1, 3, 5, 7, 9]
-target = 5
-print("element is found at index")
-print(binary_search(arr, target))
+arr = [5, 3, 8, 4, 2]
+quick_sort(arr, 0, len(arr) - 1)
+print(arr) 
